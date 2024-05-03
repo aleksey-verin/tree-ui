@@ -15,7 +15,7 @@ const TreeUl = ({
 
 
   return (
-    <ul className='pl-4'>
+    <ul className='pl-2 lg:pl-4'>
       {nodes.map((node) => (
         <TreeLi
           key={node.id}

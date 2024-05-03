@@ -75,7 +75,7 @@ const Tree = () => {
 
   return (
     <div
-      className='w-full py-8 pl-4 pr-8 border bg-white dark:bg-gray-950 border-blue-400 dark:border-gray-600 rounded-2xl relative'
+      className='w-full py-4 pl-2 pr-4 lg:py-8 lg:pl-4 lg:pr-8 border bg-white dark:bg-gray-950 border-blue-400 dark:border-gray-600 rounded-2xl relative'
       onContextMenu={disableDefaultContextMenu}
     >
       <TreeUl
