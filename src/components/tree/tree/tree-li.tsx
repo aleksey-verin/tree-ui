@@ -15,6 +15,8 @@ import {
 } from '@/store/reducers/treeDataSlice'
 import { TreeNode } from '@/store/reducers/types/treeDataTypes'
 import Dots from '@/components/ui/icons/dots'
+import Check from '@/components/ui/icons/check'
+import Cancel from '@/components/ui/icons/cancel'
 
 function getImage(node: TreeNode, isFolderOpen: boolean, className?: string) {
   if (node.type === 'group') {
@@ -104,8 +106,8 @@ const TreeLi = ({
             type='text'
             placeholder='Введите название'
           />
-          <button type='submit'>Сохранить</button>
-          <button onClick={handleCancelEditing}>Отменить</button>
+          <button title='Сохранить' className='w-6 h-6 opacity-75' type='submit'><Check className='w-6 h-6' /></button>
+          <button title='Отменить' className='w-6 h-6 opacity-75' onClick={handleCancelEditing}><Cancel className='w-6 h-6' /></button>
         </form>
       ) : (
         <>
