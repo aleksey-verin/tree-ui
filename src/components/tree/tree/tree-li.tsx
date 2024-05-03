@@ -7,8 +7,14 @@ import FolderFullOpened from '@/components/ui/icons/folder-full-opened'
 import FolderEmptyClosed from '@/components/ui/icons/folder-empty-closed'
 import File from '@/components/ui/icons/file'
 import { useAppDispatch, useAppSelector } from '@/libs/hooks'
-import { editTreeItem, selectorTreeDataSlice, setActiveItem, setEditingId } from '@/store/reducers/treeDataSlice'
+import {
+  editTreeItem,
+  selectorTreeDataSlice,
+  setActiveItem,
+  setEditingId,
+} from '@/store/reducers/treeDataSlice'
 import { TreeNode } from '@/store/reducers/types/treeDataTypes'
+import Dots from '@/components/ui/icons/dots'
 
 function getImage(node: TreeNode, isFolderOpen: boolean, className?: string) {
   if (node.type === 'group') {
@@ -102,27 +108,34 @@ const TreeLi = ({
           <button onClick={handleCancelEditing}>Отменить</button>
         </form>
       ) : (
-        <div
-          onClick={() => handleClick(node)}
-          onDoubleClick={handleDoubleClick}
-          onContextMenu={(e) => handleContextMenu(e, node)}
-          className={clsx(
-            'flex gap-2 py-1 px-2 rounded-md cursor-pointer select-none transition-colors hover:bg-gray-400 dark:hover:bg-gray-700 ',
-            node.type === 'group'
-              ? 'text-gray-800 dark:text-gray-100'
-              : 'text-cyan-900 dark:text-cyan-200',
-            activeItem?.id === node.id && 'bg-slate-400 dark:bg-slate-900'
-          )}
-        >
-          {itemImage}
-          {node.label}
-        </div>
+        <>
+          <div
+            onClick={() => handleClick(node)}
+            onDoubleClick={handleDoubleClick}
+            onContextMenu={(e) => handleContextMenu(e, node)}
+            className={clsx(
+              'flex gap-2 py-1 px-2 rounded-md cursor-pointer select-none transition-colors hover:bg-gray-400 dark:hover:bg-gray-700 relative ',
+              node.type === 'group'
+                ? 'text-gray-800 dark:text-gray-100'
+                : 'text-cyan-900 dark:text-cyan-200',
+              activeItem?.id === node.id && 'bg-slate-400 dark:bg-slate-900'
+            )}
+          >
+            {itemImage}
+            {node.label}
+            {activeItem?.id === node.id && (
+              <button
+                onClick={(e) => handleContextMenu(e, node)}
+                className='absolute w-6 h-6 right-2 text-gray-500'
+              >
+                <Dots />
+              </button>
+            )}
+          </div>
+        </>
       )}
       {node.children && node.children.length > 0 && isFolderOpen && (
-        <TreeUl
-          nodes={node.children}
-          handleContextMenu={handleContextMenu}
-        />
+        <TreeUl nodes={node.children} handleContextMenu={handleContextMenu} />
       )}
     </li>
   )

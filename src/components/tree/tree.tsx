@@ -16,7 +16,8 @@ import { TreeNode } from '@/store/reducers/types/treeDataTypes'
 
 const Tree = () => {
   const dispatch = useAppDispatch()
-  const { treeData, activeItem, isLoading, isSuccess, isError } = useAppSelector(selectorTreeDataSlice)
+  const { treeData, activeItem, isLoading, isSuccess, isError } =
+    useAppSelector(selectorTreeDataSlice)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [pointsForContextMenu, setPointsForContextMenu] = useState({
@@ -57,6 +58,7 @@ const Tree = () => {
 
   const handleContextMenu = (e: React.MouseEvent<HTMLElement>, item: TreeNode) => {
     e.preventDefault()
+    e.stopPropagation()
     setIsMenuOpen(true)
     setPointsForContextMenu({
       x: e.pageX,
@@ -78,10 +80,7 @@ const Tree = () => {
       className='w-full py-4 pl-2 pr-4 lg:py-8 lg:pl-4 lg:pr-8 border bg-white dark:bg-gray-950 border-blue-400 dark:border-gray-600 rounded-2xl relative'
       onContextMenu={disableDefaultContextMenu}
     >
-      <TreeUl
-        nodes={treeData}
-        handleContextMenu={handleContextMenu}
-      />
+      <TreeUl nodes={treeData} handleContextMenu={handleContextMenu} />
       {isMenuOpen && (
         <Dropdown
           points={pointsForContextMenu}
@@ -90,6 +89,8 @@ const Tree = () => {
           addGroup={handleAddGroupInContextMenu}
           editItem={handleEditItemInContextMenu}
           deleteItem={handleDeleteItemInContextMenu}
+          // isMenuOpen={isMenuOpen}
+          // setIsMenuOpen={setIsMenuOpen}
         />
       )}
       {isLoading && (
