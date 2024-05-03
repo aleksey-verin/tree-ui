@@ -8,30 +8,26 @@ import {
   deleteTreeItem,
   getInitialTreeData,
   selectorTreeDataSlice,
+  setActiveItem,
   setEditingId,
 } from '@/store/reducers/treeDataSlice'
-import { buildTree, TreeNode } from '@/libs/libs'
-import { documentsData, groupsData } from '@/data/data'
+import { TreeNode } from '@/libs/libs'
 import Loader from '../ui/icons/loader'
 
 const Tree = () => {
   const dispatch = useAppDispatch()
-  const { treeData, isLoading, isSuccess, isError } = useAppSelector(selectorTreeDataSlice)
-  const [activeItem, setActiveItem] = useState<TreeNode | null>(null)
+  const { treeData, activeItem, isLoading, isSuccess, isError } = useAppSelector(selectorTreeDataSlice)
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [pointsForContextMenu, setPointsForContextMenu] = useState({
+    x: 0,
+    y: 0,
+  })
 
   useEffect(() => {
     dispatch(getInitialTreeData())
   }, [dispatch])
 
-  const handleActiveItem = (item: TreeNode) => {
-    setActiveItem(item)
-  }
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [points, setPoints] = useState({
-    x: 0,
-    y: 0,
-  })
   useEffect(() => {
     const handleClick = () => setIsMenuOpen(false)
     window.addEventListener('click', handleClick)
@@ -40,21 +36,21 @@ const Tree = () => {
     }
   }, [])
 
-  const handleAddDocument = () => {
+  const handleAddDocumentInContextMenu = () => {
     if (!activeItem) return
     dispatch(
       addTreeItem({ type: 'document', parentOrGroupId: activeItem.id, name: 'Новый документ' })
     )
   }
-  const handleAddGroup = () => {
+  const handleAddGroupInContextMenu = () => {
     if (!activeItem) return
     dispatch(addTreeItem({ type: 'group', parentOrGroupId: activeItem.id, name: 'Новая группа' }))
   }
-  const handleEditItem = () => {
+  const handleEditItemInContextMenu = () => {
     if (!activeItem) return
     dispatch(setEditingId(activeItem.id))
   }
-  const handleDeleteItem = () => {
+  const handleDeleteItemInContextMenu = () => {
     if (!activeItem) return
     dispatch(deleteTreeItem({ id: activeItem?.id, type: activeItem?.type }))
   }
@@ -62,53 +58,38 @@ const Tree = () => {
   const handleContextMenu = (e: React.MouseEvent<HTMLElement>, item: TreeNode) => {
     e.preventDefault()
     setIsMenuOpen(true)
-    setPoints({
+    setPointsForContextMenu({
       x: e.pageX,
       y: e.pageY,
     })
-    setActiveItem(item)
+    dispatch(setActiveItem(item))
   }
 
-  const disableContextMenu = (e: React.MouseEvent<HTMLElement>) => {
+  const disableDefaultContextMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
   }
 
-  // if (isLoading) {
-  //   return (
-  //     <div className='w-full py-8 pl-4 pr-8 border border-blue-800 dark:border-gray-600 rounded-2xl text-center'>
-  //       <div className='w-24'>
-  //         <Loader />
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
   if (isError) {
-    return <div>Error</div>
+    return <div>Ошибка получения данных</div>
   }
 
   return (
     <div
-      className='w-full py-8 pl-4 pr-8 border border-blue-800 dark:border-gray-600 rounded-2xl relative'
-      onContextMenu={disableContextMenu}
+      className='w-full py-8 pl-4 pr-8 border bg-white dark:bg-gray-950 border-blue-400 dark:border-gray-600 rounded-2xl relative'
+      onContextMenu={disableDefaultContextMenu}
     >
       <TreeUl
         nodes={treeData}
-        activeItem={activeItem}
-        // isEditing={isEditing}
-        handleActiveItem={handleActiveItem}
         handleContextMenu={handleContextMenu}
-        // editingItem={editingItem}
-        // setEditingItem={handleEditingItem}
       />
       {isMenuOpen && (
         <Dropdown
-          points={points}
+          points={pointsForContextMenu}
           item={activeItem}
-          addDocument={handleAddDocument}
-          addGroup={handleAddGroup}
-          editItem={handleEditItem}
-          deleteItem={handleDeleteItem}
+          addDocument={handleAddDocumentInContextMenu}
+          addGroup={handleAddGroupInContextMenu}
+          editItem={handleEditItemInContextMenu}
+          deleteItem={handleDeleteItemInContextMenu}
         />
       )}
       {isLoading && (
