@@ -1,15 +1,3 @@
-export interface GroupData {
-  id: string
-  parentId: string | null
-  name: string
-}
-
-export interface DocumentsData {
-  id: string
-  groupId: string
-  name: string
-}
-
 export const groupsData = [
   {
     id: 'clvctgt0o0005127fj828uli7',

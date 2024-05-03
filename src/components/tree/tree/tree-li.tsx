@@ -1,5 +1,4 @@
 'use client'
-import { TreeNode } from '../../../libs/libs'
 import { useEffect, useRef, useState } from 'react'
 import TreeUl from './tree-ul'
 import clsx from 'clsx'
@@ -9,6 +8,7 @@ import FolderEmptyClosed from '@/components/ui/icons/folder-empty-closed'
 import File from '@/components/ui/icons/file'
 import { useAppDispatch, useAppSelector } from '@/libs/hooks'
 import { editTreeItem, selectorTreeDataSlice, setActiveItem, setEditingId } from '@/store/reducers/treeDataSlice'
+import { TreeNode } from '@/store/reducers/types/treeDataTypes'
 
 function getImage(node: TreeNode, isFolderOpen: boolean, className?: string) {
   if (node.type === 'group') {

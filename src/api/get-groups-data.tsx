@@ -1,5 +1,5 @@
-import { GroupData, groupsData } from '@/data/data'
-
+import { groupsData } from "@/data/data";
+import { GroupData } from "@/store/reducers/types/treeDataTypes";
 
 export async function getGroupsData(): Promise<GroupData[]> {
   try {

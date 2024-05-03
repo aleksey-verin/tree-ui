@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import themeSlice from './reducers/themeSlice'
 import treeDataSlice from './reducers/treeDataSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      themeSlice,
       treeDataSlice
     }
   })

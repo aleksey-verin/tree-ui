@@ -4,7 +4,7 @@ import AddFile from '../icons/add-file'
 import AddFolder from '../icons/add-folder'
 import Delete from '../icons/delete'
 import Edit from '../icons/edit'
-import { TreeNode } from '@/libs/libs'
+import { TreeNode } from '@/store/reducers/types/treeDataTypes'
 
 const DropdownItem = (
   props: React.ButtonHTMLAttributes<HTMLButtonElement> & { children: React.ReactNode }

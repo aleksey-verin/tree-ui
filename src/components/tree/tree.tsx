@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import TreeUl from './tree/tree-ul'
 import Dropdown from '../ui/dropdown/dropdown'
 import { useAppDispatch, useAppSelector } from '@/libs/hooks'
@@ -11,8 +11,8 @@ import {
   setActiveItem,
   setEditingId,
 } from '@/store/reducers/treeDataSlice'
-import { TreeNode } from '@/libs/libs'
 import Loader from '../ui/icons/loader'
+import { TreeNode } from '@/store/reducers/types/treeDataTypes'
 
 const Tree = () => {
   const dispatch = useAppDispatch()

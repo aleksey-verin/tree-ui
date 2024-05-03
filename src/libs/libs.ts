@@ -1,13 +1,4 @@
-import { DocumentsData, GroupData } from '../data/data'
-
-export type TreeItemType = 'group' | 'document'
-export interface TreeNode {
-  id: string
-  label: string
-  type: TreeItemType
-  children?: TreeNode[]
-  parentId: string | null
-}
+import { DocumentsData, GroupData, TreeNode } from "@/store/reducers/types/treeDataTypes"
 
 export function buildTree(groups: GroupData[], documents: DocumentsData[]): TreeNode[] {
   const groupMap: Map<string, TreeNode> = new Map(

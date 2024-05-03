@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/libs/hooks'
-import { TreeNode } from '../../../libs/libs'
 import TreeLi from './tree-li'
 import { selectorTreeDataSlice } from '@/store/reducers/treeDataSlice'
+import { TreeNode } from '@/store/reducers/types/treeDataTypes'
 
 const TreeUl = ({
   nodes,

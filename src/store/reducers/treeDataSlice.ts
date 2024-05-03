@@ -1,9 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AppDispatch, RootState } from '../store'
 import { getGroupsData } from '@/api/get-groups-data'
-import { buildTree, findNodeById, TreeItemType, TreeNode } from '@/libs/libs'
 import { getDocumentsData } from '@/api/get-documents-data'
-import { DocumentsData, GroupData } from '@/data/data'
+import { DocumentsData, GroupData, TreeItemType, TreeNode } from './types/treeDataTypes'
+import { buildTree, findNodeById } from '@/libs/libs'
 
 interface initialStateTypes {
   data: {

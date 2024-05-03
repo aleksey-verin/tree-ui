@@ -1,5 +1,5 @@
-import { DocumentsData, documentsData, GroupData, groupsData } from '@/data/data'
-
+import { documentsData } from "@/data/data";
+import { DocumentsData } from "@/store/reducers/types/treeDataTypes";
 
 export async function getDocumentsData(): Promise<DocumentsData[]> {
   try {
