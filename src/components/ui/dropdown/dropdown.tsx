@@ -27,8 +27,6 @@ const Dropdown = ({
   addGroup,
   editItem,
   deleteItem,
-  // isMenuOpen,
-  // setIsMenuOpen,
 }: {
   points: { x: number; y: number }
   item: TreeNode | null
@@ -36,8 +34,6 @@ const Dropdown = ({
   addGroup: () => void
   editItem: () => void
   deleteItem: () => void
-  // isMenuOpen: boolean
-  // setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
@@ -47,39 +43,10 @@ const Dropdown = ({
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // const menuRef = useRef(null);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     // Проверяем, что меню открыто и клик был не по меню и его потомкам
-  //     if (menuRef.current && !menuRef.current.contains(event.target) && isMenuOpen) {
-  //       console.log('закрываем меню');
-  //       setIsMenuOpen(false);
-  //     }
-  //   };
-
-  //   // Добавляем обработчик клика для всего окна
-  //   window.addEventListener('click', handleClickOutside);
-
-  //   // Функция для очистки эффекта
-  //   return () => {
-  //     window.removeEventListener('click', handleClickOutside);
-  //   };
-  // }, [isMenuOpen]); // Зависимость от состояния меню
-  // // useEffect(() => {
-  // //   const handleClick = () => setIsMenuOpen(false)
-  // //   window.addEventListener('click', handleClick)
-  // //   return () => {
-  // //     window.removeEventListener('click', handleClick)
-  // //   }
-  // // }, [])
-
-  console.log(points, screenWidth)
   const menuWidth = 220
   const isFreeSpace = screenWidth - points.x > menuWidth
   return (
     <div
-    // ref={menuRef}
       style={{
         top: `${points.y - 20}px`,
         left: `${isFreeSpace ? points.x - 20 : points.x - menuWidth}px`,

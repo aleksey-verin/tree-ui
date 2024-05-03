@@ -89,8 +89,6 @@ const Tree = () => {
           addGroup={handleAddGroupInContextMenu}
           editItem={handleEditItemInContextMenu}
           deleteItem={handleDeleteItemInContextMenu}
-          // isMenuOpen={isMenuOpen}
-          // setIsMenuOpen={setIsMenuOpen}
         />
       )}
       {isLoading && (

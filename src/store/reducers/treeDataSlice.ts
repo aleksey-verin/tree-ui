@@ -41,7 +41,6 @@ export const getInitialTreeData = createAsyncThunk<
 >('getTreeData', async (_, thunkAPI) => {
   try {
     const [groups, documents] = await Promise.all([getGroupsData(), getDocumentsData()])
-    // const data = buildTree(groups, documents)
     return { groups, documents }
   } catch (error) {
     console.log(error)
